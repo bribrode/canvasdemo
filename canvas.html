@@ -7,9 +7,11 @@
   </head>
   <body>
     <!-- <div id="canv-cont"> -->
+    <h5> v2</h5>
       <canvas id="canvas" width="80vw" height="80vh" >
         Your browser does not support the HTML5 canvas tag.
       </canvas>
+
       <div id="cp">
         <input type="color" id="colorpicker" name="colorpicker"  value="#E2F262">
       </div>
@@ -27,8 +29,8 @@
       window.addEventListener('load', function(e){
         console.log("here");
         console.log(window.innerWidth);
-        let width = window.visualViewport.width;
-        let height = window.visualViewport.height;
+        let width = window.innerWidth;
+        let height = window.innerHeight;
         canvas.width=.8*width;
         canvas.height=.8*height;
       });
