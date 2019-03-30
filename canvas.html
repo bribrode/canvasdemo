@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Canvas Demo</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+  </head>
+  <body>
+    <!-- <div id="canv-cont"> -->
+      <canvas id="canvas" width="80vw" height="80vh" >
+        Your browser does not support the HTML5 canvas tag.
+      </canvas>
+      <div id="cp">
+        <input type="color" id="colorpicker" name="colorpicker"  value="#E2F262">
+      </div>
+    <!-- </div> -->
+
+    <script>
+      var canvas = document.querySelector('canvas');
+      var ctx = canvas.getContext('2d');
+      var x = 100;
+      var y = 100;
+      var color = "red";
+      var radius = 20;
+
+      <!--Each time window reloads, set new canvas size-->
+      window.addEventListener('load', function(e){
+        console.log("here");
+        console.log(window.innerWidth);
+        let width = window.visualViewport.width;
+        let height = window.visualViewport.height;
+        canvas.width=.8*width;
+        canvas.height=.8*height;
+      });
+
+      <!--draw one circle -->
+      function draw(){
+        ctx.beginPath();
+        ctx.fillStyle = color;
+        ctx.arc(x, y, radius, 0, 2*Math.PI);
+        ctx.fill();
+      }
+
+      <!--Basic Pen-->
+      window.addEventListener('mousemove', function(e){
+        <!-- console.log("x="+e.pageX);-->
+        <!-- console.log("y="+e.pageY);  -->
+        x = e.pageX;
+        y = e.pageY;
+        draw();
+      });
+
+      <!--For touch screen-->
+      window.addEventListener('touchmove', function(e){
+        <!-- console.log("x="+e.pageX);-->
+        <!-- console.log("y="+e.pageY);  -->
+        x = e.pageX;
+        y = e.pageY;
+        draw();
+      });
+
+      <!--Change Pen Color-->
+      window.addEventListener('keyup', function(e) {
+        <!-- console.log(e.keyCode); -->
+        if (e.keyCode == 66){
+          color = "blue";
+        }
+        else if (e.keyCode == 89){
+          color = "yellow";
+        }
+        else if (e.keyCode == 71){
+          color = "green";
+        }
+        else if (e.keyCode == 82){
+          color = "red";
+        }
+      });
+
+      <!--Change Pen Size-->
+      window.addEventListener('keydown', function(e){
+        if (e.keyCode == 38){
+          radius = radius+1;
+        }
+        if (e.keyCode == 40){
+          if (radius > 0){
+            radius = radius-1;
+          }
+        }
+      });
+
+      <!--Clear Canvas-->
+      window.addEventListener('keyup', function(e){
+        <!-- console.log(e.keyCode); -->
+        if (e.keyCode == 32){
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+      });
+
+      <!-- Input Color Picker Value -->
+      window.addEventListener('change', function(e){
+        let col = document.querySelector("#colorpicker");
+        <!-- console.log(col.value); -->
+        color = col.value;
+      });
+
+    </script>
+  </body>
+</html>
+
+<!--6. react to touch the same way you would the mouse
+
+    7. on a mobile device, changing orientation should clear and resize the canvas-->
