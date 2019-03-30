@@ -6,8 +6,7 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
   </head>
   <body>
-    <!-- <div id="canv-cont"> -->
-    <!-- <h5> v2</h5> -->
+
       <canvas id="canvas" width="80vw" height="80vh" >
         Your browser does not support the HTML5 canvas tag.
       </canvas>
@@ -15,7 +14,6 @@
       <div id="cp">
         <input type="color" id="colorpicker" name="colorpicker"  value="#E2F262">
       </div>
-    <!-- </div> -->
 
     <script>
       var canvas = document.querySelector('canvas');
@@ -26,8 +24,8 @@
       var radius = 20;
 
       <!--Each time window reloads, set new canvas size-->
-      window.addEventListener('load', function(e){
-        console.log("here");
+      window.addEventListener('load', function(){
+        console.log("calling resize");
         console.log(window.innerWidth);
         let width = window.innerWidth;
         let height = window.innerHeight;
@@ -45,8 +43,6 @@
 
       <!--Basic Pen-->
       window.addEventListener('mousemove', function(e){
-        <!-- console.log("x="+e.pageX);-->
-        <!-- console.log("y="+e.pageY);  -->
         x = e.pageX;
         y = e.pageY;
         draw();
@@ -54,14 +50,12 @@
 
       <!--For touch screen-->
       window.addEventListener('touchmove', function(e){
-        <!-- console.log("x="+e.pageX);-->
-        <!-- console.log("y="+e.pageY);  -->
         x = e.pageX;
         y = e.pageY;
         draw();
       });
 
-      <!--Change Pen Color-->
+      <!--Change Pen Color + clear canvas-->
       window.addEventListener('keyup', function(e) {
         <!-- console.log(e.keyCode); -->
         if (e.keyCode == 66){
@@ -75,6 +69,9 @@
         }
         else if (e.keyCode == 82){
           color = "red";
+        }
+        else if (e.keyCode == 32){
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
         }
       });
 
@@ -90,25 +87,18 @@
         }
       });
 
-      <!--Clear Canvas-->
-      window.addEventListener('keyup', function(e){
-        <!-- console.log(e.keyCode); -->
-        if (e.keyCode == 32){
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-        }
-      });
-
       <!-- Input Color Picker Value -->
-      window.addEventListener('change', function(e){
+      window.addEventListener('change', function(){
         let col = document.querySelector("#colorpicker");
         <!-- console.log(col.value); -->
         color = col.value;
       });
 
+      <!--Clear Canvas on Rotation-->
+      window.addEventListener('orientationchange', function(e){
+        console.log("here");
+        location.reload();
+      })
     </script>
   </body>
 </html>
-
-<!--6. react to touch the same way you would the mouse
-
-    7. on a mobile device, changing orientation should clear and resize the canvas-->
